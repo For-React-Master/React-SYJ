@@ -5,8 +5,9 @@ import './App.css';
 import bg from './img/Mainbg.jpeg';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
-import Detail from './Detail.js';
+import Detail from './routes/Detail.js';
 import axios from 'axios';
+import 작명 from './routes/Cart.js'
 
 // let PinkBtn = styled.button`
 //     background: yellow;
@@ -76,6 +77,9 @@ function App() {
     } />
      <Route path="/detail/:id" element={<Detail apparel={apparel} />} />
 
+     <Route path="/cart" element={ <Cart/> } /> 
+     </Routes>
+
      <Route path="*" element={<div>404페이지입니다.</div>} />
 
      <Route path="/about" element={<About/>}>
@@ -84,7 +88,7 @@ function App() {
     </Route>
 
 
-    </Routes>
+    
 
 
       {/* <div className = "main-bg"> </div>

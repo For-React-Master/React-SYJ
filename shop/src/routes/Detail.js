@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import {useParams} from "react-router-dom";
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap'
 
 
 let PinkBtn = styled.button`
@@ -22,12 +23,14 @@ function Detail(props){
 
   let [ count, setCount ] = useState(0)
   let [ alert, setAlert ] = useState(true)
-
+  let [fade2, setFade2] = useState('')
 
   useEffect(()=>{
     let a = setTimeout(()=>{setAlert(false)},2000)
+    setFade2('end')
     return () => {
       clearTimeout(a);
+      setFade2('')
     }
   }, [count])
 
@@ -36,6 +39,7 @@ function Detail(props){
   let 찾은상품 = props.apparel.find(function(x){
     return x.id == id
   });
+  let [탭, 탭변경] = useState(0)
 
   return(
         <div className="container">
@@ -62,7 +66,48 @@ function Detail(props){
             <button className = "btn btn-danger">주문하기</button>
           </div>
         </div>
+
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link onClick={()=> { 탭변경(0) }} eventKey="link0">버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=>{ 탭변경(1) }} eventKey="link1">버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=> { 탭변경(2) }} eventKey="link2">버튼2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <TabContent apparel ={props.apparel} 탭 = {탭}/>
+
     </div>
     )
 }
+
+if ( 탭 == 0 ){
+  <div>내용0</div>
+} else if( 탭 ==1 ){
+  <div>내용1</div>
+} else if( 탭 ==2 ){
+  <div>내용2</div>
+}
+
+function TabContent({탭,apparel}){
+
+  let [fade, setFade] = useState('')
+
+  useEffect(()=>{
+    setTImeout(()=>{ setFade('end') }, 100)
+  return ()=>{
+    setFade('')
+  }
+  }, [탭])
+
+  return (
+    <div className={'start ' + fade}>
+      { [<div>apparel[0].title</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+    </div>
+  )
+}
+
 export default Detail;
