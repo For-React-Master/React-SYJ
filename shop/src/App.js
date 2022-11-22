@@ -19,6 +19,10 @@ function App() {
   
   let [apparel,setApparel] = useState(data)
   let navigate = useNavigate();
+  let obj = {name : 'kim'}
+  localStorage.setItem('data',JSON.stringify(obj))
+  let 꺼낸거 = localStorage.getItem('data')
+  console.log(JSON.parse(꺼낸거.name)); //JSON->array/object 변환
 
   return (
     <div className="App">
